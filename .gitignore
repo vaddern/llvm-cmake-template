@@ -1,0 +1,7 @@
+.vscode
+build
+release
+googletest
+
+# not needed VSCode stuff
+settings.json
