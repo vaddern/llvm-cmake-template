@@ -19,7 +19,27 @@ $env:PATH = "C:\msys64\mingw64\bin;" + $env:PATH
 ```
 Linux (Debian based):
 ```bash
-# todo
+
+su # type root password
+# add llvm 18 repos
+echo 'deb http://apt.llvm.org/bookworm/ llvm-toolchain-bookworm-18 main' >> /etc/apt/sources.list
+echo 'deb-src http://apt.llvm.org/bookworm/ llvm-toolchain-bookworm-18 main' >> /etc/apt/sources.list
+wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
+# install software
+curl -kLo cmake.tar.gz https://github.com/Kitware/CMake/releases/download/v3.29.6/cmake-3.29.6-linux-x86_64.tar.gz && tar xzf cmake.tar.gz && rm -rf cmake.tar.gz && cp -r cmake-3.29*/* /usr/local && rm -rf cmake-3.29*
+apt install clang-18 lld-18 curl ccache gdb git zip
+
+curl -kLo ninja.zip https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-linux.zip
+unzip ninja.zip -d /usr/local/bin && rm -rf ninja.zip
+
+exit # return to user
+
+```
+
+# get it
+```
+git clone --depth=1 https://github.com/vaddern/llvm-cmake-template
+cd llvm-cmake-template
 ```
 
 # config
@@ -32,7 +52,8 @@ cmd /c mklink /D .vscode configs\windows
 ```
 Unix:
 ```bash
-# todo
+ln -s configs/linux .vscode
+chmod +x .vscode/build.sh .vscode/test.sh
 ```
 
 # build and run
